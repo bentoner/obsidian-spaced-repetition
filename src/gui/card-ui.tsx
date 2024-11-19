@@ -37,6 +37,7 @@ export class CardUI {
     public editButton: HTMLButtonElement;
     public resetButton: HTMLButtonElement;
     public infoButton: HTMLButtonElement;
+    public openNoteButton: HTMLButtonElement;
     public skipButton: HTMLButtonElement;
 
     public content: HTMLDivElement;
@@ -461,6 +462,7 @@ export class CardUI {
         this._createEditButton();
         this._createResetButton();
         this._createCardInfoButton();
+        this._createOpenNoteButton();
         this._createSkipButton();
     }
 
@@ -491,6 +493,16 @@ export class CardUI {
         this.infoButton.setAttribute("aria-label", "View Card Info");
         this.infoButton.addEventListener("click", async () => {
             this._displayCurrentCardInfoNotice();
+        });
+    }
+
+    private _createOpenNoteButton() {
+        this.openNoteButton = this.controls.createEl("button");
+        this.openNoteButton.addClasses(["sr-button", "sr-open-note-button"]);
+        setIcon(this.openNoteButton, "external-link");
+        this.openNoteButton.setAttribute("aria-label", "View current note of card");
+        this.openNoteButton.addEventListener("click", async () => {
+            this.app.workspace.openLinkText(this.reviewSequencer.currentNote.filePath, "", true);
         });
     }
 
